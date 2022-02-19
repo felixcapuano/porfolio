@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import './Terminal.css';
 import { Terminal as Term } from 'xterm';
-import { FitAddon } from 'xterm-addon-fit';
 import '../node_modules/xterm/css/xterm.css';
+// import { FitAddon } from 'xterm-addon-fit';
 const { io } = require('socket.io-client');
 
 const SERVER_HOST = 'http://localhost:3001';
@@ -22,14 +22,25 @@ const Terminal = () => {
     });
 
     // // Browser -> Backend
-    // term.on('data',  (data) => {
-    //   socket.emit('data', data);
+    // term.onKey((e) => {
+    //   const ev = e.domEvent;
+    //   console.log(ev);
+    //   const printable = !ev.altKey && !ev.ctrlKey && !ev.metaKey;
+
+    //   if (ev.key === 'Backspace') {
+    //     // if (term._core.buffer.x > 0)
+    //     term.write('\b \b');
+    //   } else if (ev.key === 'Enter') term.prompt();
+    //   else if (printable) term.write(e.key);
     // });
 
-    // Backend -> Browser
-    socket.on('data', (data) => {
-      term.write(data);
+    term.onData((data) => {
+      console.log(data);
+      socket.emit('data', data);
     });
+
+    // Backend -> Browser
+    socket.on('data', term.write);
 
     socket.on('disconnect', function () {
       term.write('\r\n*** Disconnected from backend***\r\n');

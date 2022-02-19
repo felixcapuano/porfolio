@@ -19,8 +19,13 @@ const io = new Server(httpServer, {
 });
 
 io.on('connection', (socket) => {
-  socket.emit("data", "\r\n*** SSH CONNECTION ESTABLISHED ***\r\n");
+  socket.emit('data', '\r\n*** SSH CONNECTION ESTABLISHED ***\r\n');
   console.log('connected');
+
+  socket.on('data', (data) => {
+    console.log(data);
+    // socket.emit('data', data);
+  });
 });
 
 httpServer.listen(SERVER_PORT, () =>
