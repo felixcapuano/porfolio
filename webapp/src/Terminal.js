@@ -21,7 +21,6 @@ const Terminal = () => {
       term.write('\r\n*** Connected to backend***\r\n');
     });
 
-    // // Browser -> Backend
     // term.onKey((e) => {
     //   const ev = e.domEvent;
     //   console.log(ev);
@@ -34,15 +33,13 @@ const Terminal = () => {
     //   else if (printable) term.write(e.key);
     // });
 
-    term.onData((data) => {
-      console.log(data);
-      socket.emit('data', data);
-    });
+    // Browser -> Backend
+    term.onData((data) => socket.emit('data', data));
 
     // Backend -> Browser
-    socket.on('data', term.write);
+    socket.on('data', (data) => term.write(data));
 
-    socket.on('disconnect', function () {
+    socket.on('disconnect', () => {
       term.write('\r\n*** Disconnected from backend***\r\n');
     });
 
