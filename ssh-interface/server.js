@@ -10,7 +10,6 @@ const SSH_PASSWORD = 'test';
 const SSH_USERNAME = 'test';
 const SSH_HOST = 'localhost';
 
-
 const sshOptions = {
   host: SSH_HOST,
   port: 22,
@@ -51,6 +50,7 @@ const dataFlowHandler = (stream, socket) => {
 };
 
 io.on('connection', async (socket) => {
+  console.log('socket connected');
   const ssh = new Client();
   ssh.on('ready', () => createStream(ssh, socket)).connect(sshOptions);
 });
