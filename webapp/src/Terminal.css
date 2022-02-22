@@ -1,6 +1,9 @@
 .Terminal {
-  background-color: blue;
-  width: 960px;
-  height: 550px;
-  display: inline-block;
+  position: relative;
+  background-color: black;
+  left: 0vh;
+  right: 0px;
+  height: 100vh;
+  margin: 0px;
+  padding: 0px;
 }

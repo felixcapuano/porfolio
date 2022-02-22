@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import './Terminal.css';
 import { Terminal as Term } from 'xterm';
 import '../node_modules/xterm/css/xterm.css';
-// import { FitAddon } from 'xterm-addon-fit';
+import { FitAddon } from 'xterm-addon-fit';
 const { io } = require('socket.io-client');
 
 const SERVER_HOST = 'http://localhost:3001';
@@ -11,10 +11,11 @@ const Terminal = () => {
   useEffect(() => {
     // terminalConfiguration
     const term = new Term({ cursorBlink: true });
-    // term.loadAddon(new FitAddon());
+    const fitAddon = new FitAddon();
+    term.loadAddon(fitAddon);
     const terminalElement = document.getElementById('terminal');
-    // term.fit();
     term.open(terminalElement);
+    fitAddon.fit();
 
     const socket = io(SERVER_HOST);
     socket.on('connect', () => {
