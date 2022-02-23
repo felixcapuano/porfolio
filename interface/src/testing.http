@@ -53,3 +53,12 @@ X-API-Key: ptr_rXKOja7r8bpFdOVqkKBeZsqk2SuEqEJGQT3pN5UTw7s=
 POST http://localhost:9000/api/endpoints/4/docker/containers/4889344f9e123ee8869d68507cdeed6cff458e3eceaae57228ad1a2a996e5a92/start
 X-API-Key: ptr_rXKOja7r8bpFdOVqkKBeZsqk2SuEqEJGQT3pN5UTw7s=
 Content-Type: application/json
+
+### connect network
+POST http://localhost:9000/api/endpoints/4/docker/networks/porfolio_default/connect
+X-API-Key: ptr_rXKOja7r8bpFdOVqkKBeZsqk2SuEqEJGQT3pN5UTw7s=
+Content-Type: application/json
+
+{
+  "Container": "env-kaynmyidkv"
+}

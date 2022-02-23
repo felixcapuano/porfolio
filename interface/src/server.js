@@ -22,7 +22,7 @@ io.on('connection', async (socket) => {
   const container_name = 'env-' + Math.random().toString(36).substring(2, 12);
   console.log(container_name);
   // run a container
-  // await createContainer(container_name);
+  await createContainer(container_name);
 
   // create a tunnel between the frontend and the container
   // establishTunnel(socket, sshHost);

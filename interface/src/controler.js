@@ -27,10 +27,17 @@ const createContainer = async (name) => {
 
     const resStart = await portainer_instance.post(`/containers/${name}/start`);
     console.log(`Container ${name} : Started`);
+
+    const resNetworkConnect = await portainer_instance.post(
+      `/networks/${process.env.SSH_NETWORK}/connect`,
+      { Container: name }
+    );
+    console.log(`Container ${name} : Connected`);
+
     return true;
   } catch (err) {
     console.log(`Container ${name} : Creation failed`);
-    console.error(err.response);
+    console.error(err.message);
     return false;
   }
 };
@@ -45,7 +52,7 @@ const deleteContainer = async (name) => {
     return true;
   } catch (err) {
     console.log(`Container ${name} : Deletion failed`);
-    console.error(err.response);
+    console.error(err.message);
     return false;
   }
 };
