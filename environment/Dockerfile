@@ -1,6 +1,7 @@
 FROM ubuntu:21.10
 ARG USERNAME=test
 ARG PASSWORD=test
+ARG TTL=10s
 
 # ssh installation
 RUN apt update && apt install openssh-server vim tree -y
@@ -29,4 +30,5 @@ RUN service ssh start
 
 EXPOSE 22
 
-CMD ["/usr/sbin/sshd","-D"]
+# CMD ["/usr/sbin/sshd","-D"]
+CMD ["sleep", "${TTL}"]
