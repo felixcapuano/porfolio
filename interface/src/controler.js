@@ -18,7 +18,7 @@ const createContainer = async (name) => {
         Labels: { 'com.docker.compose.project': 'porfolio' },
         HostConfig: {
           PortBindings: {
-            '22/tcp': [{ HostPort: '22' }],
+            // '22/tcp': [{ HostPort: '22' }],
           },
         },
       }

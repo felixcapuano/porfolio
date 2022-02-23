@@ -1,15 +1,21 @@
 const { Client } = require('ssh2');
 
-const sshOptions = {
+const sshDefaultConfig = {
   host: process.env.SSH_HOST,
   port: 22,
   username: process.env.SSH_USERNAME,
   password: process.env.SSH_PASSWORD,
 };
 
-const establishTunnel = (socket) => {
+const establishTunnel = (socket, sshHost = undefined) => {
   const ssh = new Client();
-  ssh.on('ready', () => createStream(ssh, socket)).connect(sshOptions);
+
+  const sshConfig = {
+    ...sshDefaultConfig,
+    host: sshHost,
+  };
+  console.log(sshConfig)
+  ssh.on('ready', () => createStream(ssh, socket)).connect(sshConfig);
 };
 
 const createStream = (ssh, socket) => {
