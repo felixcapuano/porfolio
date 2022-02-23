@@ -1,4 +1,3 @@
-require('dotenv').config();
 const axios = require('axios');
 
 const portainer_instance = axios.create({
@@ -16,6 +15,7 @@ const createContainer = async (name) => {
         HostName: 'ssh2',
         Image: 'ssh:latest',
         ExposedPorts: { '22/tcp': {} },
+        Labels: { 'com.docker.compose.project': 'porfolio' },
         HostConfig: {
           PortBindings: {
             '22/tcp': [{ HostPort: '22' }],
@@ -27,11 +27,11 @@ const createContainer = async (name) => {
 
     const resStart = await portainer_instance.post(`/containers/${name}/start`);
     console.log(`Container ${name} : Started`);
-    return true
+    return true;
   } catch (err) {
     console.log(`Container ${name} : Creation failed`);
     console.error(err.response);
-    return false
+    return false;
   }
 };
 
@@ -42,16 +42,12 @@ const deleteContainer = async (name) => {
 
     const resDelete = await portainer_instance.delete(`/containers/${name}`);
     console.log(`Container ${name} : Removed`);
-    return true
+    return true;
   } catch (err) {
     console.log(`Container ${name} : Deletion failed`);
     console.error(err.response);
-    return false
+    return false;
   }
 };
-
-(async () => {
-  await deleteContainer('ssh2');
-})();
 
 module.exports = { deleteContainer, createContainer };

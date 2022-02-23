@@ -21,7 +21,8 @@ GET http://localhost:9000/api/endpoints/4/docker/containers/json
 X-API-Key: ptr_rXKOja7r8bpFdOVqkKBeZsqk2SuEqEJGQT3pN5UTw7s=
 
 ###
-POST http://localhost:9000/api/endpoints/4/docker/containers/create
+
+POST http://localhost:9000/api/endpoints/4/docker/containers/create?name=test
 X-API-Key: ptr_rXKOja7r8bpFdOVqkKBeZsqk2SuEqEJGQT3pN5UTw7s=
 Content-Type: application/json
 
@@ -29,6 +30,7 @@ Content-Type: application/json
   "Name":"ssh1",
   "Image":"ssh:latest",
   "ExposedPorts":{ "22/tcp": {} },
+  "Labels":{"com.docker.compose.project":"porfolio"},
   "HostConfig":{
     "PortBindings": {
       "22/tcp": [{ "HostPort": "22" }]
