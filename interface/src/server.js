@@ -20,7 +20,7 @@ io.on('connection', (socket) => {
   // run a container
 
   // create a tunnel between the frontend and the container
-  establishTunnel(socket);
+  // establishTunnel(socket);
 });
 
 httpServer.listen(process.env.SERVER_PORT, () =>

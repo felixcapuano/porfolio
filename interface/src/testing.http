@@ -1,0 +1,53 @@
+### create portainer admin
+POST http://localhost:9000/api/users/admin/init
+
+{
+  "Username": "admin",
+  "Password": "adminadmin"
+}
+### auth portainer admin
+POST http://localhost:9000/api/auth
+
+{
+  "Username": "admin",
+  "Password": "adminadmin"
+}
+### list endpoints
+GET http://localhost:9000/api/endpoints
+X-API-Key: ptr_rXKOja7r8bpFdOVqkKBeZsqk2SuEqEJGQT3pN5UTw7s=
+
+### list container
+GET http://localhost:9000/api/endpoints/4/docker/containers/json
+X-API-Key: ptr_rXKOja7r8bpFdOVqkKBeZsqk2SuEqEJGQT3pN5UTw7s=
+
+###
+POST http://localhost:9000/api/endpoints/4/docker/containers/create
+X-API-Key: ptr_rXKOja7r8bpFdOVqkKBeZsqk2SuEqEJGQT3pN5UTw7s=
+Content-Type: application/json
+
+{
+  "Name":"ssh1",
+  "Image":"ssh:latest",
+  "ExposedPorts":{ "22/tcp": {} },
+  "HostConfig":{
+    "PortBindings": {
+      "22/tcp": [{ "HostPort": "22" }]
+      }
+    }
+}
+
+### rename container
+POST http://localhost:9000/api/endpoints/4/docker/containers/dc734e06465cd1e3818f3c0c0329729766c7e985a4369237f058ec18ffa00067/rename?name=ssh2
+X-API-Key: ptr_rXKOja7r8bpFdOVqkKBeZsqk2SuEqEJGQT3pN5UTw7s=
+Content-Type: application/json
+
+### inspect container
+GET http://localhost:9000/api/endpoints/4/docker/containers/dc734e06465cd1e3818f3c0c0329729766c7e985a4369237f058ec18ffa00067/json
+X-API-Key: ptr_rXKOja7r8bpFdOVqkKBeZsqk2SuEqEJGQT3pN5UTw7s=
+
+
+
+### start container
+POST http://localhost:9000/api/endpoints/4/docker/containers/4889344f9e123ee8869d68507cdeed6cff458e3eceaae57228ad1a2a996e5a92/start
+X-API-Key: ptr_rXKOja7r8bpFdOVqkKBeZsqk2SuEqEJGQT3pN5UTw7s=
+Content-Type: application/json
