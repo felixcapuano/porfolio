@@ -50,10 +50,15 @@ const welcomeMessage = (t) => {
       await echo('Hello world!✋  My name is Felix.');
       await waitForResponseAnimation(2);
 
-      await echo('I\'m a IT enthusiast and I doing cloud services in a big consulting firms');
+      await echo(
+        "I'm a IT enthusiast and I am cloud enginner in a big consulting firms"
+      );
       await waitForResponseAnimation(2);
 
-      await echo('I\'m playing basket-ball 🏀 since my 7 year old.');
+      await echo('I going to introduce myself');
+      await waitForResponseAnimation(2);
+
+      await echo("I'm playing basket-ball 🏀 since my 7 year old.");
       await waitForResponseAnimation(2);
 
       await echo("I'm going to present you my home");
@@ -64,6 +69,7 @@ const welcomeMessage = (t) => {
 
       await echo('I come from ' + 'Fr'.blue + 'an'.white + 'ce'.red);
       await waitForResponseAnimation(2);
+
       await echo(
         'I promess you to show you my place before lets dive into it 🚀'
       );
