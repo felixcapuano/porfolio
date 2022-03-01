@@ -11,7 +11,23 @@ const welcomeMessage = (t) => {
 
   const echo = async (text) => {
     await t.writeln(`$ ${text}`);
-    lineCount += 1;
+  };
+
+  const typingEffect = async (text) => {
+    const writeLetter = async (text, pos) => {
+      await t.write(text[pos]);
+      pos++;
+      await sleep(Math.floor(Math.random() * 100) + 1);
+      if (text.length > pos) await writeLetter(text, pos);
+    };
+    let position = 0;
+    await writeLetter(text, position);
+  };
+
+  const typingSequence = async (text) => {
+    await typingEffect(text);
+    await t.write('\n\r$ ');
+    await sleep(200);
   };
 
   const waitForResponseAnimation = async (times = 2, interval = 150) => {
@@ -25,6 +41,10 @@ const welcomeMessage = (t) => {
     await t.write('\b \b\b \b\b \b');
 
     times && times-- && (await waitForResponseAnimation(times, interval));
+  };
+
+  const waitingKeypress = () => {
+    return new Promise((resolve) => t.onKey(resolve));
   };
 
   return new Promise(async (resolve, reject) => {
@@ -47,33 +67,33 @@ const welcomeMessage = (t) => {
           ' --------------------------------------------------------\n\r'
       );
 
-      await echo('Hello world!✋  My name is Felix.');
-      await waitForResponseAnimation(2);
-
-      await echo(
-        "I'm a IT enthusiast and I am cloud enginner in a big consulting firms"
+      await t.write('$ ');
+      await typingSequence('Hello world!✋');
+      await typingSequence('My name is ' + 'Felix'.bgCyan + '.');
+      await typingSequence("I'm going to introduce myself.");
+      await typingSequence(
+        'I live in ' + 'Fr'.bgBlue + 'an'.bgWhite + 'ce'.bgRed + '.'
       );
-      await waitForResponseAnimation(2);
+      await typingSequence("I'm a " + 'IT enthusiast 💻 '.bgMagenta + '.');
 
-      await echo('I going to introduce myself');
-      await waitForResponseAnimation(2);
-
-      await echo("I'm playing basket-ball 🏀 since my 7 year old.");
-      await waitForResponseAnimation(2);
-
-      await echo("I'm going to present you my home");
-      await waitForResponseAnimation(2);
-
-      await echo('But first let introduce myself');
-      await waitForResponseAnimation(2);
-
-      await echo('I come from ' + 'Fr'.blue + 'an'.white + 'ce'.red);
-      await waitForResponseAnimation(2);
-
-      await echo(
-        'I promess you to show you my place before lets dive into it 🚀'
+      await typingSequence(
+        'I work as a ' + 'cloud devops engineer ☁️ '.bgBlue + '.'
       );
-      await waitForResponseAnimation(2);
+      await typingSequence(
+        'I love playing ' + 'basket-ball 🏀 '.bgYellow + ' every week.'
+      );
+      await typingSequence(
+        'I like to play ' + 'video games 🕹️ '.bgRed + ' with my friend.'
+      );
+      await typingSequence(
+        'Are you ready to visit ' + 'my world 🌎 '.bgGreen + '?'
+      );
+      await t.writeln('\b \b\b \bType enter to continue');
+      await waitingKeypress();
+
+      await echo('Lets go ! 🚀');
+      // await sleep(2000);
+      // await t.clear()
 
       return resolve();
     } catch (error) {
