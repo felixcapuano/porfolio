@@ -4,7 +4,6 @@ const { createServer } = require('http');
 const { Server } = require('socket.io');
 const { establishTunnel } = require('./tunnel');
 const { createContainer, deleteContainer } = require('./controler');
-const { createHash } = require('crypto');
 
 const corsOptions = {
   origin: process.env.CLIENT_HOST,
@@ -25,7 +24,7 @@ io.on('connection', async (socket) => {
   await createContainer(container_name);
 
   // create a tunnel between the frontend and the container
-  // establishTunnel(socket, sshHost);
+  establishTunnel(socket, container_name);
 });
 
 httpServer.listen(process.env.SERVER_PORT, () =>

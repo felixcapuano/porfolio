@@ -1,5 +1,6 @@
 FROM node:17
 
+ENV SERVER_PORT=80
 # Create app directory
 WORKDIR /usr/src/app
 
@@ -15,9 +16,8 @@ RUN npm install
 # Bundle app source
 COPY ./src/ .
 
-RUN npm install -g nodemon
+# RUN npm install -g nodemon
 
-EXPOSE 3001
+EXPOSE 80
 
-# CMD [ "node", "server.js" ]
-CMD ["tail", "-f", "/dev/null"]
+CMD [ "node", "server.js" ]

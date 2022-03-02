@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.9'
 services:
   portainer:
     container_name: portainer
@@ -10,3 +10,20 @@ services:
       - ./portainer-data:/data
     ports:
       - 9000:9000
+    networks:
+      - porfolio
+
+  interface:
+    container_name: interface
+    image: interface
+    build: ./interface
+    ports:
+      - 3001:80
+    environment:
+      PORTAINER_HOST: http://portainer:9000
+    networks:
+      - porfolio
+
+networks:
+  porfolio:
+    name: porfolio_network
